@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="utf-8"> <!--Latin-->
+    <meta name="viewport" content="width=device-width, user-scalable=no"> <!--user-scalable Elimina el zoom, width define el ancho de pantalla-->
+    <link type="text/css" href="style.css" rel="stylesheet">
+</head>
+    <body>
+        <div class="main">
+            <img src="user.svg" id="img2">
+            
+            <input type="email" name="usuario" placeholder="Correo" id="correo">
+            <input type="password" name="password" placeholder="Password" id="password">
+
+            <button id="iniciar">Iniciar</button>
+            <button onclick="window.location.assign('registrar.html')">Registrar</button>
+        </div>
+    </body>
+    <script>
+            var correo = document.getElementById('correo');
+            var password = document.getElementById('password');
+            var iniciar=document.getElementById('iniciar');
+    
+
+            function iniciarSesion(){
+                
+
+
+                if(localStorage.getItem('correo') == correo.value){
+
+
+                    if(localStorage.getItem('password')==password.value){
+                        
+                        window.location.assign('inicio.html');
+
+                    }else{
+                        alert("La contraseña no es la correcta");    
+                    }
+                }else{
+                    alert("Direccion de correo no encontrada");
+                }
+
+
+            };
+
+            
+            iniciar.addEventListener('click',iniciarSesion);
+
+        </script>
+
+</html>

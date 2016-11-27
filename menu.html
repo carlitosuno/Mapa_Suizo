@@ -1,0 +1,158 @@
+<html>
+<head>
+    <meta charset="utf-8"> <!--Latin-->
+    <meta name="viewport" content="width=device-width, user-scalable=no"> <!--user-scalable Elimina el zoom, width define el ancho de pantalla-->
+    <style>
+        *{
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'Segoe UI', 'Arial','Sans-serif';
+}
+
+body{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+header{
+    width: 100%;
+    z-index: 99;    
+    height: 50px;
+    background: blue;
+}
+header>button{
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+}
+
+#menu{
+    width: 80%;
+    height: 100%;
+    background: purple;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    /*Ocultar*/
+    left: -100%;
+    transition: .3s all;
+}
+.verMenu{
+    left: 0% !important;
+}
+
+
+#usuario{
+     
+    height: 180px;
+    background: yellow;
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+#usuario>img{
+    height: 80px;
+    margin-top: 5px;
+    border-radius: 50%;
+}
+
+#usuario>h1{
+    text-align: center;
+    width: 100%;
+}
+
+
+#menu>ul{
+    width: 100%;
+    float: left;
+    background-color: green;
+}
+
+#menu li{
+    font-size: 1.3em;
+    width: 100%;
+    height: 40px;
+    float: left;
+    line-height: 40px;
+    padding-left:10px;
+    box-sizing: border-box;
+}
+</style>
+
+
+
+</head>
+    <body id="body">
+        
+        
+        <header>
+          <button onclick="verMenu()">=</button>
+        </header>
+
+        <div id="menu">
+          
+          <div id="usuario">
+            <img src="#">
+            <h1>nombre dinamico</h1>
+          </div>
+          
+          <ul>
+            <li><a href="inicio.html">Inicio</a> </li>
+            <li> <a href="lugares.html">Lugares Guardados</a> </li>
+            <li> <a href="buscador.html">Buscador Inteligente</a></li>
+            <li> <a href="index.html">Salir</a> </li>
+          </ul>
+
+        </div>
+
+    </body>
+   
+   <script>
+   function verMenu(){
+       document.getElementById('menu').classList.toggle('verMenu');
+   }
+
+   var menu = document.getElementById('menu');
+   menu.addEventListener('touchstart',toco,true);
+   menu.addEventListener('touchmove',mover,true);
+   menu.addEventListener('touchend',fin,true);
+
+   function toco(event){
+    toqueInicialX = event.targetTouches[0].pageX;
+   }
+
+
+   function mover(event){
+    toque = event.targetTouches[0];
+    menu.style.transition = "0s all";
+    
+    
+    anchoMenu = document.querySelector('#body').offsetWidth;
+    
+    desplazamiento= toqueInicialX-toque.pageX;
+
+    if(toque.pageX < anchoMenu){
+        menu.style.marginLeft ="-"+desplazamiento+"px";
+    }
+
+   }
+
+   function fin (){
+    menu.style.transition = ".3s all";
+    
+    if(toque.pageX < 20){
+        menu.classList.toggle('verMenu');
+        toque="";
+    }
+    menu.style.marginLeft="0px";
+
+   }
+
+
+
+
+   </script>
+
+</html>

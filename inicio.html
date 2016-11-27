@@ -1,0 +1,111 @@
+<html>
+<head>
+    <meta charset="utf-8"> <!--Latin-->
+    <meta name="viewport" content="width=device-width, user-scalable=no"> <!--user-scalable Elimina el zoom, width define el ancho de pantalla-->
+    <link type="text/css" href="style.css" rel="stylesheet"> 
+    <nav id="nav1">
+        <div id="menu">
+          
+          <div id="usuario">
+            <img src="user.png" id="imgusuario">
+            <h1>USUARIO</h1>
+          </div>
+          
+          <ul>
+            <li><a href="index.html">Salir</a> </li>
+          </ul>
+
+        </div>
+        <header>
+          <button onclick="verMenu()" id="btnmenu"><img src="menu.svg" id="imgmenu"></button>
+        </header>
+        </nav>
+</head>
+    
+    <body id="mapabody">
+        
+    
+        <div id="mapa1">
+        	
+        </div>
+    </body>
+    <script>
+    	var map;
+    	 window.addEventListener('load',localizar,true);
+    	 
+		//Obtener localizacionn
+    	 function localizar(){
+    	 	navigator.geolocation.getCurrentPosition(ubicacion);
+    	 }
+
+    	 function ubicacion(datos){
+    	 	longitud = datos.coords.longitude;
+    	 	latitud = datos.coords.latitude;
+    	 	initMap();
+    	 }
+
+		function initMap() {
+			map = new google.maps.Map(document.getElementById('mapa1'), {
+    			center: {lat: latitud, lng: longitud},
+    			zoom: 18
+  			});
+            
+            var marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: {lat: latitud, lng: longitud},
+                map: map,
+                //label: 'YO!!!'
+                title: 'AQUI ESTOY!!!'
+            });
+		}
+        
+        function verMenu(){
+       document.getElementById('menu').classList.toggle('verMenu');
+   }
+
+   var menu = document.getElementById('menu');
+   menu.addEventListener('touchstart',toco,true);
+   menu.addEventListener('touchmove',mover,true);
+   menu.addEventListener('touchend',fin,true);
+
+   function toco(event){
+    toqueInicialX = event.targetTouches[0].pageX;
+   }
+
+
+   function mover(event){
+    toque = event.targetTouches[0];
+    menu.style.transition = "0s all";
+    
+    
+    anchoMenu = document.querySelector('#body').offsetWidth;
+    
+    desplazamiento= toqueInicialX-toque.pageX;
+
+    if(toque.pageX < anchoMenu){
+        menu.style.marginLeft ="-"+desplazamiento+"px";
+    }
+
+   }
+
+   function fin (){
+    menu.style.transition = ".3s all";
+    
+    if(toque.pageX < 20){
+        menu.classList.toggle('verMenu');
+        toque="";
+    }
+    menu.style.marginLeft="0px";
+
+   }
+
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPgPzbvexOcgeQzwKZKjQt3oyT0ZeNzN8">
+    </script>
+    
+    <img class="invertir" src="calculadora.svg" id="btncalcu" onclick="window.location.assign('calculadora.html')">
+    <img class="invertir" src="notas.svg" id="btnota" onclick="window.location.assign('notas.html')">
+    <img class="invertir" src="agenda2.svg" id="btnagenda" onclick="window.location.assign('agenda.html')">
+</html>
